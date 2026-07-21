@@ -330,6 +330,10 @@
             transform: none !important;
         }
 
+        .btn.hidden {
+            display: none !important;
+        }
+
         .heart {
             color: #d81b60;
         }
@@ -380,8 +384,8 @@
             <div class="navigation">
                 <button class="btn btn-prev" id="prevBtn" onclick="previousPage()">← Prev</button>
                 <button class="btn btn-next" id="nextBtn" onclick="nextPage()">Next →</button>
-                <a href="tel:0424190540" class="btn btn-call" id="callBtn">💬 Call</a>
-                <a href="closing.html" class="btn btn-close" id="closeBtn">Close</a>
+                <a href="tel:0424190540" class="btn btn-call hidden" id="callBtn">💬 Call</a>
+                <a href="closing.html" class="btn btn-close hidden" id="closeBtn">Close</a>
             </div>
         </div>
     </div>
@@ -450,8 +454,17 @@
             document.getElementById('nextBtn').style.display = pageNum === pages.length ? 'none' : 'inline-block';
             
             // Show/hide Call and Close buttons based on page data
-            callBtn.style.display = pageData.showCallButton ? 'inline-block' : 'none';
-            closeBtn.style.display = pageData.showCloseButton ? 'inline-block' : 'none';
+            if (pageData.showCallButton) {
+                callBtn.classList.remove('hidden');
+            } else {
+                callBtn.classList.add('hidden');
+            }
+            
+            if (pageData.showCloseButton) {
+                closeBtn.classList.remove('hidden');
+            } else {
+                closeBtn.classList.add('hidden');
+            }
 
             window.scrollTo(0, 0);
         }
