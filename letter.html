@@ -58,10 +58,10 @@
             position: relative;
             z-index: 1;
             animation: slideIn 0.8s ease-out;
-            min-height: 500px;
+            min-height: 600px;
             display: flex;
             flex-direction: column;
-            justify-content: space-between;
+            justify-content: flex-start;
         }
 
         @keyframes slideIn {
@@ -75,14 +75,23 @@
             }
         }
 
+        .page-indicator {
+            text-align: center;
+            color: #d81b60;
+            font-size: 14px;
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+
         .letter-content {
             color: #333;
             line-height: 1.8;
             font-size: clamp(14px, 3vw, 16px);
             flex-grow: 1;
             display: flex;
-            align-items: center;
+            flex-direction: column;
             justify-content: center;
+            min-height: 300px;
         }
 
         .letter-content p {
@@ -94,15 +103,7 @@
             text-align: right;
             font-style: italic;
             color: #d81b60;
-            margin-top: 20px;
-        }
-
-        .page-indicator {
-            text-align: center;
-            color: #d81b60;
-            font-size: 14px;
-            margin-bottom: 20px;
-            font-weight: bold;
+            margin-top: 30px;
         }
 
         .navigation {
@@ -148,6 +149,29 @@
             transform: translateY(-3px);
         }
 
+        .btn-call {
+            background: linear-gradient(135deg, #ec407a 0%, #d81b60 100%);
+            color: white;
+            box-shadow: 0 4px 15px rgba(236, 64, 122, 0.4);
+        }
+
+        .btn-call:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(236, 64, 122, 0.6);
+        }
+
+        .btn-close {
+            background: #f5f5f5;
+            color: #d81b60;
+            border: 2px solid #d81b60;
+        }
+
+        .btn-close:hover {
+            background: #d81b60;
+            color: white;
+            transform: translateY(-3px);
+        }
+
         .btn:disabled {
             opacity: 0.5;
             cursor: not-allowed;
@@ -175,7 +199,8 @@
         <div class="navigation">
             <button class="btn btn-prev" id="prevBtn" onclick="previousPage()">← Previous</button>
             <button class="btn btn-next" id="nextBtn" onclick="nextPage()">Next →</button>
-            <a href="closing.html" class="btn btn-next" id="closeBtn" style="display: none;">Close Letter</a>
+            <a href="tel:0424190540" class="btn btn-call" id="callBtn">💬 Call Me</a>
+            <a href="closing.html" class="btn btn-close" id="closeBtn" style="display: none;">Close Letter</a>
         </div>
     </div>
 
@@ -191,8 +216,8 @@
                 text: `When I asked to break up with you, I was tired from work and had a few drinks up to that point. That's not an excuse for what I did and said, but I just lashed out without thinking straight or thinking about the consequences. I know this just seems like one last desperate attempt to make things right, but I can't bear to lose you and leave the person I love most in the world hurt like that. You are my soulmate and my everything. I would do anything for you. Sleeping at night is so painful, not having the love of my life next to me, and the bed sheets still smell like coconut and sticky date. I have shed many tears over the past few days, and I just want my pookie back. I just want to be fatty boom booms and play Roblox, Sudoku, Mario Kart, with you. You are my pookie and my everything.`
             },
             {
-                text: `From the very first time I asked you to be my girlfriend, I never thought it would ever come to this. You are the one and only person I want to spend the rest of my life with. You're everything to me. Thank you for reading this. I just want you to know how much you meant to me. I love you more than words can ever describe.<p style="margin-top: 30px; text-align: right; font-style: italic; color: #d81b60;">Love,<br><br>Your Pookie <span class="heart">❤️</span></p>`,
-                isSignature: true
+                text: `From the very first time I asked you to be my girlfriend, I never thought it would ever come to this. You are the one and only person I want to spend the rest of my life with. You're everything to me. Thank you for reading this. I just want you to know how much you meant to me. I love you more than words can ever describe.`,
+                showSignature: true
             }
         ];
 
@@ -218,15 +243,20 @@
             const pageData = pages[pageNum - 1];
             const letterContent = document.getElementById('letterContent');
             
-            letterContent.innerHTML = pageData.isSignature 
-                ? pageData.text 
-                : `<p>${pageData.text}</p>`;
+            let content = `<p>${pageData.text}</p>`;
+            
+            if (pageData.showSignature) {
+                content += `<div class="signature">Love,<br><br>Your Pookie <span class="heart">❤️</span></div>`;
+            }
+            
+            letterContent.innerHTML = content;
             
             document.getElementById('currentPage').textContent = pageNum;
             
             // Update button states
             document.getElementById('prevBtn').disabled = pageNum === 1;
             document.getElementById('nextBtn').style.display = pageNum === pages.length ? 'none' : 'inline-block';
+            document.getElementById('callBtn').style.display = 'inline-block';
             document.getElementById('closeBtn').style.display = pageNum === pages.length ? 'inline-block' : 'none';
 
             // Scroll to top
