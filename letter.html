@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A Letter For You</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(135deg, #fce4ec 0%, #f8bbd0 100%);
+            font-family: 'Georgia', serif;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            overflow-x: hidden;
+        }
+
+        .flowers {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .flower {
+            position: absolute;
+            font-size: 24px;
+            opacity: 0.6;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(-20px);
+            }
+        }
+
+        .letter-container {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 50px;
+            max-width: 700px;
+            box-shadow: 0 10px 40px rgba(236, 64, 122, 0.2);
+            position: relative;
+            z-index: 1;
+            animation: slideIn 0.8s ease-out;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .letter-content {
+            color: #333;
+            line-height: 1.8;
+            font-size: 16px;
+            margin-bottom: 30px;
+        }
+
+        .letter-content p {
+            margin-bottom: 18px;
+            text-align: justify;
+        }
+
+        .letter-content .signature {
+            margin-top: 30px;
+            text-align: right;
+            font-style: italic;
+            color: #d81b60;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 40px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 12px 30px;
+            border: none;
+            border-radius: 50px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: bold;
+        }
+
+        .btn-call {
+            background: linear-gradient(135deg, #ec407a 0%, #d81b60 100%);
+            color: white;
+            box-shadow: 0 4px 15px rgba(236, 64, 122, 0.4);
+        }
+
+        .btn-call:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(236, 64, 122, 0.6);
+        }
+
+        .btn-close {
+            background: #f5f5f5;
+            color: #d81b60;
+            border: 2px solid #d81b60;
+        }
+
+        .btn-close:hover {
+            background: #d81b60;
+            color: white;
+            transform: translateY(-3px);
+        }
+
+        .heart {
+            display: inline-block;
+            color: #d81b60;
+        }
+
+        @media (max-width: 600px) {
+            .letter-container {
+                padding: 30px;
+            }
+
+            .letter-content {
+                font-size: 15px;
+            }
+
+            .flower {
+                font-size: 18px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="flowers" id="flowerContainer"></div>
+
+    <div class="letter-container">
+        <div class="letter-content">
+            <p>I wanted to write a final letter to seem all poetic and shit, but with the way things are moving and you being so far away, it wouldn't have reached you fast enough, so I thought this would be my best option.</p>
+
+            <p>I'm truly sorry for the hurt I've caused you, and I know that my behavior has been appalling and childish and not fair to you. I know that I haven't been open with you and mistreated you. I just want us to sit down, one to one, and at least try to work things out.</p>
+
+            <p>I know our relationship has been rocky and was far from perfect, and I greatly messed up when I asked to break up with you. It was very selfish and childish of me to storm out and pack my things like that. I'm an idiot sandwich who, even though I knew you didn't like certain behaviours, I still broke your trust and disrespected you, and I don't even know if you could ever forgive me for that.</p>
+
+            <p>I've been spending the past few days reflecting deeply, and I know that I have apologised before and would fall back into the same behavior, but I really do want to change that and learn from my mistakes, and I really want to be a better pookie for you.</p>
+
+            <p>I also want the relationship to be a bit different. I want to build your trust and reassurance, and do more things and spend a lot more quality time together. I also want my actions to speak for themselves, not just empty promises.</p>
+
+            <p>We have sacrificed so much and built something beautiful. Our love was so great, we spent 2 years being long distance, flying constantly just to see each other, when most couples wouldn't even bother with that.</p>
+
+            <p>We have spent 5 years together, and it really hurts that our last conversations have just come down to money, furniture, and logistics.</p>
+
+            <p>I just want us to get away from all of this for a bit and just go somewhere far away together and rekindle what love we had for each other.</p>
+
+            <p>It hurts me a lot thinking about us not seeing each other and not growing old together.</p>
+
+            <p>When I asked to break up with you, I was tired from work and had a few drinks up to that point. That's not an excuse for what I did and said, but I just lashed out without thinking straight or thinking about the consequences.</p>
+
+            <p>I know this just seems like one last desperate attempt to make things right, but I can't bear to lose you and leave the person I love most in the world hurt like that.</p>
+
+            <p>You are my soulmate and my everything. I would do anything for you.</p>
+
+            <p>Sleeping at night is so painful, not having the love of my life next to me, and the bed sheets still smell like coconut and sticky date. I have shed many tears over the past few days, and I just want my pookie back.</p>
+
+            <p>I just want to be fatty boom booms and play Roblox, Sudoku, Mario Kart, with you.</p>
+
+            <p>You are my pookie and my everything.</p>
+
+            <p>From the very first time I asked you to be my girlfriend, I never thought it would ever come to this. You are the one and only person I want to spend the rest of my life with. You're everything to me.</p>
+
+            <p>Thank you for reading this. No matter what you decide, I just want you to know how much you meant to me. I love you more than words can ever describe.</p>
+
+            <div class="signature">
+                Love,<br>
+                Your Pookie <span class="heart">❤️</span>
+            </div>
+        </div>
+
+        <div class="button-group">
+            <button class="btn btn-call" onclick="callMe()">💬 Call Me</button>
+            <button class="btn btn-close" onclick="closeLetter()">Close Letter</button>
+        </div>
+    </div>
+
+    <script>
+        // Generate random flowers
+        function generateFlowers() {
+            const flowerContainer = document.getElementById('flowerContainer');
+            const flowers = ['🌸', '🌼', '🌻', '🌷', '🌹', '💐'];
+            
+            for (let i = 0; i < 15; i++) {
+                const flower = document.createElement('div');
+                flower.className = 'flower';
+                flower.textContent = flowers[Math.floor(Math.random() * flowers.length)];
+                flower.style.left = Math.random() * 100 + '%';
+                flower.style.top = Math.random() * 100 + '%';
+                flower.style.animationDelay = Math.random() * 2 + 's';
+                flower.style.opacity = Math.random() * 0.5 + 0.3;
+                flowerContainer.appendChild(flower);
+            }
+        }
+
+        function callMe() {
+            const phoneNumber = '0424190540';
+            window.location.href = 'tel:' + phoneNumber;
+        }
+
+        function closeLetter() {
+            window.location.href = 'closing.html';
+        }
+
+        // Generate flowers on page load
+        window.addEventListener('load', generateFlowers);
+    </script>
+</body>
+</html>
