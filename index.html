@@ -16,6 +16,7 @@
             font-family: 'Georgia', serif;
             min-height: 100vh;
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
             padding: 20px;
@@ -52,10 +53,10 @@
             perspective: 1000px;
             position: relative;
             z-index: 1;
-            margin-bottom: 60px;
             width: 100%;
             display: flex;
             justify-content: center;
+            margin-bottom: 60px;
         }
 
         .envelope {
@@ -70,6 +71,11 @@
             box-shadow: 0 15px 50px rgba(236, 64, 122, 0.4);
             transition: all 0.3s ease;
             overflow: hidden;
+            touch-action: none;
+        }
+
+        .envelope:active {
+            transform: scale(0.98);
         }
 
         .envelope:hover {
@@ -77,7 +83,6 @@
             box-shadow: 0 20px 60px rgba(236, 64, 122, 0.6);
         }
 
-        /* Envelope body */
         .envelope-body {
             position: absolute;
             width: 100%;
@@ -86,7 +91,6 @@
             border-radius: 15px;
         }
 
-        /* Left triangle flap */
         .envelope-flap-left {
             position: absolute;
             top: 0;
@@ -102,7 +106,6 @@
             cursor: pointer;
         }
 
-        /* Right triangle flap */
         .envelope-flap-right {
             position: absolute;
             top: 0;
@@ -126,7 +129,6 @@
             transform: rotateY(180deg);
         }
 
-        /* Envelope content */
         .envelope-content {
             position: absolute;
             top: 20%;
@@ -195,17 +197,168 @@
                 transform: translateX(-50%) translateY(-15px);
             }
         }
+
+        .letter-wrapper {
+            position: relative;
+            z-index: 1;
+            width: 100%;
+            max-width: 700px;
+            display: none;
+        }
+
+        .letter-wrapper.show {
+            display: block;
+        }
+
+        .letter-container {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 10px 40px rgba(236, 64, 122, 0.2);
+            animation: slideIn 0.8s ease-out;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .page-indicator {
+            text-align: center;
+            color: #d81b60;
+            font-size: 14px;
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+
+        .letter-content {
+            color: #333;
+            line-height: 1.8;
+            font-size: 16px;
+            margin-bottom: 30px;
+            min-height: 300px;
+            text-align: justify;
+        }
+
+        .letter-content p {
+            margin-bottom: 20px;
+        }
+
+        .signature {
+            text-align: right;
+            font-style: italic;
+            color: #d81b60;
+            margin-top: 40px;
+            margin-bottom: 0;
+        }
+
+        .navigation {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+
+        .btn {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 50px;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: bold;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-next {
+            background: linear-gradient(135deg, #ec407a 0%, #d81b60 100%);
+            color: white;
+            box-shadow: 0 4px 15px rgba(236, 64, 122, 0.4);
+        }
+
+        .btn-next:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(236, 64, 122, 0.6);
+        }
+
+        .btn-prev {
+            background: #f5f5f5;
+            color: #d81b60;
+            border: 2px solid #d81b60;
+        }
+
+        .btn-prev:hover {
+            background: #d81b60;
+            color: white;
+            transform: translateY(-3px);
+        }
+
+        .btn-call {
+            background: linear-gradient(135deg, #ec407a 0%, #d81b60 100%);
+            color: white;
+            box-shadow: 0 4px 15px rgba(236, 64, 122, 0.4);
+        }
+
+        .btn-call:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(236, 64, 122, 0.6);
+        }
+
+        .btn-close {
+            background: #f5f5f5;
+            color: #d81b60;
+            border: 2px solid #d81b60;
+        }
+
+        .btn-close:hover {
+            background: #d81b60;
+            color: white;
+            transform: translateY(-3px);
+        }
+
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none !important;
+        }
+
+        .heart {
+            color: #d81b60;
+        }
+
+        @media (max-width: 600px) {
+            .letter-container {
+                padding: 20px;
+            }
+
+            .letter-content {
+                font-size: 15px;
+            }
+
+            .btn {
+                padding: 10px 20px;
+                font-size: 13px;
+            }
+        }
     </style>
 </head>
 <body>
     <div class="flowers" id="flowerContainer"></div>
 
-    <div class="envelope-wrapper">
+    <div class="envelope-wrapper" id="envelopeWrapper">
         <div style="width: 100%; display: flex; flex-direction: column; align-items: center;">
             <div class="envelope" id="envelope">
                 <div class="envelope-body"></div>
-                <div class="envelope-flap-left" id="flapLeft"></div>
-                <div class="envelope-flap-right" id="flapRight"></div>
+                <div class="envelope-flap-left"></div>
+                <div class="envelope-flap-right"></div>
                 <div class="envelope-content">
                     <div class="heart-icon">❤️</div>
                     <div class="envelope-text">For You</div>
@@ -216,8 +369,43 @@
         </div>
     </div>
 
+    <div class="letter-wrapper" id="letterWrapper">
+        <div class="letter-container">
+            <div class="page-indicator">
+                Page <span id="currentPage">1</span> of 4
+            </div>
+
+            <div class="letter-content" id="letterContent"></div>
+
+            <div class="navigation">
+                <button class="btn btn-prev" id="prevBtn" onclick="previousPage()">← Prev</button>
+                <button class="btn btn-next" id="nextBtn" onclick="nextPage()">Next →</button>
+                <a href="tel:0424190540" class="btn btn-call" id="callBtn" style="display: none;">💬 Call</a>
+                <a href="closing.html" class="btn btn-close" id="closeBtn" style="display: none;">Close</a>
+            </div>
+        </div>
+    </div>
+
     <script>
-        // Generate random flowers
+        const pages = [
+            {
+                text: `I wanted to write a final letter to seem all poetic and shit, but with the way things are moving and you being so far away, it wouldn't have reached you fast enough, so I thought this would be my best option. I'm truly sorry for the hurt I've caused you, and I know that my behavior has been appalling and childish and not fair to you. I know that I haven't been open with you and mistreated you. I just want us to sit down, one to one, and at least try to work things out. I know our relationship has been rocky and was far from perfect, and I greatly messed up when I asked to break up with you. It was very selfish and childish of me to storm out and pack my things like that. I'm an idiot sandwich who, even though I knew you didn't like certain behaviours, I still broke your trust and disrespected you, and I don't even know if you could ever forgive me for that. I've been spending the past few days reflecting deeply, and I know that I have apologised before and would fall back into the same behavior, but I really do want to change that and learn from my mistakes, and I really want to be a better pookie for you.`
+            },
+            {
+                text: `I also want the relationship to be a bit different. I want to build your trust and reassurance, and do more things and spend a lot more quality time together. I also want my actions to speak for themselves, not just empty promises. We have sacrificed so much and built something beautiful. Our love was so great, we spent 2 years being long distance, flying constantly just to see each other, when most couples wouldn't even bother with that. We have spent 5 years together, and it really hurts that our last conversations have just come down to money, furniture, and logistics. I just want us to get away from all of this for a bit and just go somewhere far away together and rekindle what love we had for each other. It hurts me a lot thinking about us not seeing each other and not growing old together.`
+            },
+            {
+                text: `When I asked to break up with you, I was tired from work and had a few drinks up to that point. That's not an excuse for what I did and said, but I just lashed out without thinking straight or thinking about the consequences. I know this just seems like one last desperate attempt to make things right, but I can't bear to lose you and leave the person I love most in the world hurt like that. You are my soulmate and my everything. I would do anything for you. Sleeping at night is so painful, not having the love of my life next to me, and the bed sheets still smell like coconut and sticky date. I have shed many tears over the past few days, and I just want my pookie back. I just want to be fatty boom booms and play Roblox, Sudoku, Mario Kart, with you. You are my pookie and my everything.`
+            },
+            {
+                text: `From the very first time I asked you to be my girlfriend, I never thought it would ever come to this. You are the one and only person I want to spend the rest of my life with. You're everything to me. Thank you for reading this. I just want you to know how much you meant to me. I love you more than words can ever describe.`,
+                hasSignature: true
+            }
+        ];
+
+        let currentPage = 1;
+        let letterOpened = false;
+
         function generateFlowers() {
             const flowerContainer = document.getElementById('flowerContainer');
             const flowers = ['🌸', '🌼', '🌻', '🌷', '🌹', '💐'];
@@ -234,18 +422,68 @@
             }
         }
 
-        // Handle envelope click
-        document.getElementById('envelope').addEventListener('click', function() {
-            this.classList.add('opened');
+        function displayPage(pageNum) {
+            const pageData = pages[pageNum - 1];
+            const letterContent = document.getElementById('letterContent');
             
-            // Redirect to letter page after animation
-            setTimeout(() => {
-                window.location.href = 'https://rawcdn.githack.com/amirah20022017-a11y/apology-letter/main/letter.html';
-            }, 600);
-        });
+            let content = `<p>${pageData.text}</p>`;
+            
+            if (pageData.hasSignature) {
+                content += `<div class="signature">Love,<br><br>Your Pookie <span class="heart">❤️</span></div>`;
+            }
+            
+            letterContent.innerHTML = content;
+            document.getElementById('currentPage').textContent = pageNum;
+            
+            document.getElementById('prevBtn').disabled = pageNum === 1;
+            document.getElementById('nextBtn').style.display = pageNum === pages.length ? 'none' : 'inline-block';
+            
+            // Only show Call button on last page
+            document.getElementById('callBtn').style.display = pageNum === pages.length ? 'inline-block' : 'none';
+            document.getElementById('closeBtn').style.display = pageNum === pages.length ? 'inline-block' : 'none';
 
-        // Generate flowers on page load
-        window.addEventListener('load', generateFlowers);
+            window.scrollTo(0, 0);
+        }
+
+        function openLetter() {
+            if (!letterOpened) {
+                letterOpened = true;
+                const envelope = document.getElementById('envelope');
+                envelope.classList.add('opened');
+                
+                setTimeout(() => {
+                    document.getElementById('envelopeWrapper').style.display = 'none';
+                    document.getElementById('letterWrapper').classList.add('show');
+                    displayPage(1);
+                }, 600);
+            }
+        }
+
+        function nextPage() {
+            if (currentPage < pages.length) {
+                currentPage++;
+                displayPage(currentPage);
+            }
+        }
+
+        function previousPage() {
+            if (currentPage > 1) {
+                currentPage--;
+                displayPage(currentPage);
+            }
+        }
+
+        // Touch and click handlers for envelope
+        const envelope = document.getElementById('envelope');
+        envelope.addEventListener('click', openLetter);
+        envelope.addEventListener('touchstart', function(e) {
+            e.preventDefault();
+            openLetter();
+        }, false);
+
+        window.addEventListener('load', () => {
+            generateFlowers();
+        });
     </script>
 </body>
 </html>
