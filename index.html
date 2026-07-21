@@ -380,8 +380,8 @@
             <div class="navigation">
                 <button class="btn btn-prev" id="prevBtn" onclick="previousPage()">← Prev</button>
                 <button class="btn btn-next" id="nextBtn" onclick="nextPage()">Next →</button>
-                <a href="tel:0424190540" class="btn btn-call" id="callBtn" style="display: none;">💬 Call</a>
-                <a href="closing.html" class="btn btn-close" id="closeBtn" style="display: none;">Close</a>
+                <a href="tel:0424190540" class="btn btn-call" id="callBtn">💬 Call</a>
+                <a href="closing.html" class="btn btn-close" id="closeBtn">Close</a>
             </div>
         </div>
     </div>
@@ -389,17 +389,25 @@
     <script>
         const pages = [
             {
-                text: `I wanted to write a final letter to seem all poetic and shit, but with the way things are moving and you being so far away, it wouldn't have reached you fast enough, so I thought this would be my best option. I'm truly sorry for the hurt I've caused you, and I know that my behavior has been appalling and childish and not fair to you. I know that I haven't been open with you and mistreated you. I just want us to sit down, one to one, and at least try to work things out. I know our relationship has been rocky and was far from perfect, and I greatly messed up when I asked to break up with you. It was very selfish and childish of me to storm out and pack my things like that. I'm an idiot sandwich who, even though I knew you didn't like certain behaviours, I still broke your trust and disrespected you, and I don't even know if you could ever forgive me for that. I've been spending the past few days reflecting deeply, and I know that I have apologised before and would fall back into the same behavior, but I really do want to change that and learn from my mistakes, and I really want to be a better pookie for you.`
+                text: `I wanted to write a final letter to seem all poetic and shit, but with the way things are moving and you being so far away, it wouldn't have reached you fast enough, so I thought this would be my best option. I'm truly sorry for the hurt I've caused you, and I know that my behavior has been appalling and childish and not fair to you. I know that I haven't been open with you and mistreated you. I just want us to sit down, one to one, and at least try to work things out. I know our relationship has been rocky and was far from perfect, and I greatly messed up when I asked to break up with you. It was very selfish and childish of me to storm out and pack my things like that. I'm an idiot sandwich who, even though I knew you didn't like certain behaviours, I still broke your trust and disrespected you, and I don't even know if you could ever forgive me for that. I've been spending the past few days reflecting deeply, and I know that I have apologised before and would fall back into the same behavior, but I really do want to change that and learn from my mistakes, and I really want to be a better pookie for you.`,
+                showCallButton: false,
+                showCloseButton: false
             },
             {
-                text: `I also want the relationship to be a bit different. I want to build your trust and reassurance, and do more things and spend a lot more quality time together. I also want my actions to speak for themselves, not just empty promises. We have sacrificed so much and built something beautiful. Our love was so great, we spent 2 years being long distance, flying constantly just to see each other, when most couples wouldn't even bother with that. We have spent 5 years together, and it really hurts that our last conversations have just come down to money, furniture, and logistics. I just want us to get away from all of this for a bit and just go somewhere far away together and rekindle what love we had for each other. It hurts me a lot thinking about us not seeing each other and not growing old together.`
+                text: `I also want the relationship to be a bit different. I want to build your trust and reassurance, and do more things and spend a lot more quality time together. I also want my actions to speak for themselves, not just empty promises. We have sacrificed so much and built something beautiful. Our love was so great, we spent 2 years being long distance, flying constantly just to see each other, when most couples wouldn't even bother with that. We have spent 5 years together, and it really hurts that our last conversations have just come down to money, furniture, and logistics. I just want us to get away from all of this for a bit and just go somewhere far away together and rekindle what love we had for each other. It hurts me a lot thinking about us not seeing each other and not growing old together.`,
+                showCallButton: false,
+                showCloseButton: false
             },
             {
-                text: `When I asked to break up with you, I was tired from work and had a few drinks up to that point. That's not an excuse for what I did and said, but I just lashed out without thinking straight or thinking about the consequences. I know this just seems like one last desperate attempt to make things right, but I can't bear to lose you and leave the person I love most in the world hurt like that. You are my soulmate and my everything. I would do anything for you. Sleeping at night is so painful, not having the love of my life next to me, and the bed sheets still smell like coconut and sticky date. I have shed many tears over the past few days, and I just want my pookie back. I just want to be fatty boom booms and play Roblox, Sudoku, Mario Kart, with you. You are my pookie and my everything.`
+                text: `When I asked to break up with you, I was tired from work and had a few drinks up to that point. That's not an excuse for what I did and said, but I just lashed out without thinking straight or thinking about the consequences. I know this just seems like one last desperate attempt to make things right, but I can't bear to lose you and leave the person I love most in the world hurt like that. You are my soulmate and my everything. I would do anything for you. Sleeping at night is so painful, not having the love of my life next to me, and the bed sheets still smell like coconut and sticky date. I have shed many tears over the past few days, and I just want my pookie back. I just want to be fatty boom booms and play Roblox, Sudoku, Mario Kart, with you. You are my pookie and my everything.`,
+                showCallButton: false,
+                showCloseButton: false
             },
             {
                 text: `From the very first time I asked you to be my girlfriend, I never thought it would ever come to this. You are the one and only person I want to spend the rest of my life with. You're everything to me. Thank you for reading this. I just want you to know how much you meant to me. I love you more than words can ever describe.`,
-                hasSignature: true
+                hasSignature: true,
+                showCallButton: true,
+                showCloseButton: true
             }
         ];
 
@@ -425,6 +433,8 @@
         function displayPage(pageNum) {
             const pageData = pages[pageNum - 1];
             const letterContent = document.getElementById('letterContent');
+            const callBtn = document.getElementById('callBtn');
+            const closeBtn = document.getElementById('closeBtn');
             
             let content = `<p>${pageData.text}</p>`;
             
@@ -435,12 +445,13 @@
             letterContent.innerHTML = content;
             document.getElementById('currentPage').textContent = pageNum;
             
+            // Update button states
             document.getElementById('prevBtn').disabled = pageNum === 1;
             document.getElementById('nextBtn').style.display = pageNum === pages.length ? 'none' : 'inline-block';
             
-            // Only show Call button on last page
-            document.getElementById('callBtn').style.display = pageNum === pages.length ? 'inline-block' : 'none';
-            document.getElementById('closeBtn').style.display = pageNum === pages.length ? 'inline-block' : 'none';
+            // Show/hide Call and Close buttons based on page data
+            callBtn.style.display = pageData.showCallButton ? 'inline-block' : 'none';
+            closeBtn.style.display = pageData.showCloseButton ? 'inline-block' : 'none';
 
             window.scrollTo(0, 0);
         }
