@@ -51,8 +51,9 @@
         .letter-container {
             background: rgba(255, 255, 255, 0.95);
             border-radius: 20px;
-            padding: 50px;
+            padding: clamp(20px, 5vw, 50px);
             max-width: 700px;
+            width: 100%;
             box-shadow: 0 10px 40px rgba(236, 64, 122, 0.2);
             position: relative;
             z-index: 1;
@@ -73,7 +74,7 @@
         .letter-content {
             color: #333;
             line-height: 1.8;
-            font-size: 16px;
+            font-size: clamp(14px, 3vw, 16px);
             margin-bottom: 30px;
         }
 
@@ -105,6 +106,8 @@
             cursor: pointer;
             transition: all 0.3s ease;
             font-weight: bold;
+            text-decoration: none;
+            display: inline-block;
         }
 
         .btn-call {
@@ -133,20 +136,6 @@
         .heart {
             display: inline-block;
             color: #d81b60;
-        }
-
-        @media (max-width: 600px) {
-            .letter-container {
-                padding: 30px;
-            }
-
-            .letter-content {
-                font-size: 15px;
-            }
-
-            .flower {
-                font-size: 18px;
-            }
         }
     </style>
 </head>
@@ -196,8 +185,8 @@
         </div>
 
         <div class="button-group">
-            <button class="btn btn-call" onclick="callMe()">💬 Call Me</button>
-            <button class="btn btn-close" onclick="closeLetter()">Close Letter</button>
+            <a href="tel:0424190540" class="btn btn-call">💬 Call Me</a>
+            <a href="closing.html" class="btn btn-close">Close Letter</a>
         </div>
     </div>
 
@@ -217,15 +206,6 @@
                 flower.style.opacity = Math.random() * 0.5 + 0.3;
                 flowerContainer.appendChild(flower);
             }
-        }
-
-        function callMe() {
-            const phoneNumber = '0424190540';
-            window.location.href = 'tel:' + phoneNumber;
-        }
-
-        function closeLetter() {
-            window.location.href = 'closing.html';
         }
 
         // Generate flowers on page load
