@@ -53,11 +53,15 @@
             position: relative;
             z-index: 1;
             margin-bottom: 60px;
+            width: 100%;
+            display: flex;
+            justify-content: center;
         }
 
         .envelope {
-            width: 450px;
-            height: 300px;
+            width: 80vw;
+            max-width: 450px;
+            aspect-ratio: 450 / 300;
             background: white;
             border: 4px solid #d81b60;
             border-radius: 15px;
@@ -89,8 +93,10 @@
             left: 0;
             width: 0;
             height: 0;
-            border-left: 225px solid transparent;
-            border-top: 150px solid #ec407a;
+            border-left: 25vw solid transparent;
+            border-top: calc(25vw * 0.667) solid #ec407a;
+            max-width: 225px;
+            max-height: 150px;
             transform-origin: left top;
             transition: all 0.6s ease;
             cursor: pointer;
@@ -103,8 +109,10 @@
             right: 0;
             width: 0;
             height: 0;
-            border-right: 225px solid transparent;
-            border-top: 150px solid #d81b60;
+            border-right: 25vw solid transparent;
+            border-top: calc(25vw * 0.667) solid #d81b60;
+            max-width: 225px;
+            max-height: 150px;
             transform-origin: right top;
             transition: all 0.6s ease;
             cursor: pointer;
@@ -121,10 +129,10 @@
         /* Envelope content */
         .envelope-content {
             position: absolute;
-            top: 60px;
-            left: 20px;
-            right: 20px;
-            bottom: 20px;
+            top: 20%;
+            left: 5%;
+            right: 5%;
+            bottom: 5%;
             background: white;
             border-radius: 10px;
             display: flex;
@@ -137,19 +145,19 @@
         .envelope-text {
             text-align: center;
             color: #d81b60;
-            font-size: 32px;
+            font-size: clamp(24px, 5vw, 32px);
             font-weight: bold;
         }
 
         .envelope-subtext {
             color: #ec407a;
-            font-size: 18px;
+            font-size: clamp(14px, 3vw, 18px);
             margin-top: 10px;
             font-style: italic;
         }
 
         .heart-icon {
-            font-size: 48px;
+            font-size: clamp(36px, 8vw, 48px);
             margin: 10px 0;
             animation: heartbeat 1.5s ease-in-out infinite;
         }
@@ -173,9 +181,10 @@
             transform: translateX(-50%);
             color: #d81b60;
             font-style: italic;
-            font-size: 16px;
+            font-size: clamp(14px, 3vw, 16px);
             animation: bounce 2s ease-in-out infinite;
             font-weight: bold;
+            text-align: center;
         }
 
         @keyframes bounce {
@@ -186,62 +195,25 @@
                 transform: translateX(-50%) translateY(-15px);
             }
         }
-
-        @media (max-width: 600px) {
-            .envelope {
-                width: 300px;
-                height: 200px;
-            }
-
-            .envelope-flap-left {
-                border-left: 150px solid transparent;
-                border-top: 100px solid #ec407a;
-            }
-
-            .envelope-flap-right {
-                border-right: 150px solid transparent;
-                border-top: 100px solid #d81b60;
-            }
-
-            .envelope-content {
-                top: 40px;
-                left: 15px;
-                right: 15px;
-            }
-
-            .envelope-text {
-                font-size: 24px;
-            }
-
-            .envelope-subtext {
-                font-size: 14px;
-            }
-
-            .heart-icon {
-                font-size: 36px;
-            }
-
-            .click-instruction {
-                font-size: 14px;
-            }
-        }
     </style>
 </head>
 <body>
     <div class="flowers" id="flowerContainer"></div>
 
     <div class="envelope-wrapper">
-        <div class="envelope" id="envelope">
-            <div class="envelope-body"></div>
-            <div class="envelope-flap-left" id="flapLeft"></div>
-            <div class="envelope-flap-right" id="flapRight"></div>
-            <div class="envelope-content">
-                <div class="heart-icon">❤️</div>
-                <div class="envelope-text">For You</div>
-                <div class="envelope-subtext">with love</div>
+        <div style="width: 100%; display: flex; flex-direction: column; align-items: center;">
+            <div class="envelope" id="envelope">
+                <div class="envelope-body"></div>
+                <div class="envelope-flap-left" id="flapLeft"></div>
+                <div class="envelope-flap-right" id="flapRight"></div>
+                <div class="envelope-content">
+                    <div class="heart-icon">❤️</div>
+                    <div class="envelope-text">For You</div>
+                    <div class="envelope-subtext">with love</div>
+                </div>
             </div>
+            <div class="click-instruction">✨ Click to open ✨</div>
         </div>
-        <div class="click-instruction">✨ Click to open ✨</div>
     </div>
 
     <script>
