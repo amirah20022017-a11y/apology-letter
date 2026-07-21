@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>A Letter For You - Page 1</title>
+    <title>A Letter For You</title>
     <style>
         * {
             margin: 0;
@@ -16,6 +16,7 @@
             font-family: 'Georgia', serif;
             min-height: 100vh;
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
             padding: 20px;
@@ -48,20 +49,19 @@
             }
         }
 
+        .letter-wrapper {
+            position: relative;
+            z-index: 1;
+            width: 100%;
+            max-width: 700px;
+        }
+
         .letter-container {
             background: rgba(255, 255, 255, 0.95);
             border-radius: 20px;
-            padding: clamp(20px, 5vw, 50px);
-            max-width: 700px;
-            width: 100%;
+            padding: 30px;
             box-shadow: 0 10px 40px rgba(236, 64, 122, 0.2);
-            position: relative;
-            z-index: 1;
             animation: slideIn 0.8s ease-out;
-            min-height: 600px;
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-start;
         }
 
         @keyframes slideIn {
@@ -86,39 +86,37 @@
         .letter-content {
             color: #333;
             line-height: 1.8;
-            font-size: clamp(14px, 3vw, 16px);
-            flex-grow: 1;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
+            font-size: 16px;
+            margin-bottom: 30px;
             min-height: 300px;
+            text-align: justify;
         }
 
         .letter-content p {
-            text-align: justify;
-            margin: 0;
+            margin-bottom: 20px;
         }
 
-        .letter-content .signature {
+        .signature {
             text-align: right;
             font-style: italic;
             color: #d81b60;
-            margin-top: 30px;
+            margin-top: 40px;
+            margin-bottom: 0;
         }
 
         .navigation {
             display: flex;
-            gap: 15px;
+            gap: 10px;
             justify-content: center;
-            margin-top: 30px;
             flex-wrap: wrap;
+            margin-top: 20px;
         }
 
         .btn {
-            padding: 12px 30px;
+            padding: 12px 25px;
             border: none;
             border-radius: 50px;
-            font-size: 16px;
+            font-size: 14px;
             cursor: pointer;
             transition: all 0.3s ease;
             font-weight: bold;
@@ -179,28 +177,42 @@
         }
 
         .heart {
-            display: inline-block;
             color: #d81b60;
+        }
+
+        @media (max-width: 600px) {
+            .letter-container {
+                padding: 20px;
+            }
+
+            .letter-content {
+                font-size: 15px;
+            }
+
+            .btn {
+                padding: 10px 20px;
+                font-size: 13px;
+            }
         }
     </style>
 </head>
 <body>
     <div class="flowers" id="flowerContainer"></div>
 
-    <div class="letter-container">
-        <div class="page-indicator">
-            Page <span id="currentPage">1</span> of 4
-        </div>
+    <div class="letter-wrapper">
+        <div class="letter-container">
+            <div class="page-indicator">
+                Page <span id="currentPage">1</span> of 4
+            </div>
 
-        <div class="letter-content" id="letterContent">
-            <!-- Content will be inserted here -->
-        </div>
+            <div class="letter-content" id="letterContent"></div>
 
-        <div class="navigation">
-            <button class="btn btn-prev" id="prevBtn" onclick="previousPage()">← Previous</button>
-            <button class="btn btn-next" id="nextBtn" onclick="nextPage()">Next →</button>
-            <a href="tel:0424190540" class="btn btn-call" id="callBtn">💬 Call Me</a>
-            <a href="closing.html" class="btn btn-close" id="closeBtn" style="display: none;">Close Letter</a>
+            <div class="navigation">
+                <button class="btn btn-prev" id="prevBtn" onclick="previousPage()">← Prev</button>
+                <button class="btn btn-next" id="nextBtn" onclick="nextPage()">Next →</button>
+                <a href="tel:0424190540" class="btn btn-call" id="callBtn">💬 Call</a>
+                <a href="closing.html" class="btn btn-close" id="closeBtn" style="display: none;">Close</a>
+            </div>
         </div>
     </div>
 
@@ -217,7 +229,7 @@
             },
             {
                 text: `From the very first time I asked you to be my girlfriend, I never thought it would ever come to this. You are the one and only person I want to spend the rest of my life with. You're everything to me. Thank you for reading this. I just want you to know how much you meant to me. I love you more than words can ever describe.`,
-                showSignature: true
+                hasSignature: true
             }
         ];
 
@@ -245,22 +257,19 @@
             
             let content = `<p>${pageData.text}</p>`;
             
-            if (pageData.showSignature) {
+            if (pageData.hasSignature) {
                 content += `<div class="signature">Love,<br><br>Your Pookie <span class="heart">❤️</span></div>`;
             }
             
             letterContent.innerHTML = content;
-            
             document.getElementById('currentPage').textContent = pageNum;
             
-            // Update button states
             document.getElementById('prevBtn').disabled = pageNum === 1;
             document.getElementById('nextBtn').style.display = pageNum === pages.length ? 'none' : 'inline-block';
             document.getElementById('callBtn').style.display = 'inline-block';
             document.getElementById('closeBtn').style.display = pageNum === pages.length ? 'inline-block' : 'none';
 
-            // Scroll to top
-            document.querySelector('.letter-container').scrollIntoView({ behavior: 'smooth' });
+            window.scrollTo(0, 0);
         }
 
         function nextPage() {
